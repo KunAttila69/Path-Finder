@@ -56,11 +56,19 @@ const MoveMap = () => {
     moves.filter(x => x.GetMoves(data).length > 0).forEach(move => {
         move.GetMoves(data).forEach(newMove => {
             const newElement = new Move(newMove.x,newMove.y,move.round+1,CalculateDistance(newMove.y,newMove.x))
-            moves.push(newElement)
-            data[newElement.y][newElement.x] = newElement
+            if (!newMove.isEnd) {
+                moves.push(newElement)
+                data[newElement.y][newElement.x] = newElement
+            }else{
+                End(newElement)
+            }
         })
     })
     LoadMap()
+}
+
+const End = (endTile) => {
+    console.log(endTile)
 }
 
 moveBtn.addEventListener("click", () => {
