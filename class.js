@@ -3,8 +3,9 @@ class Move{
         this.x = x,
         this.y = y,
         this.round = round,
-        this.distance = distance
-        this.points = this.round + this.distance
+        this.distance = distance,
+        this.points = this.round + this.distance,
+        this.bestTile = false
     }
      
 

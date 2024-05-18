@@ -1,17 +1,21 @@
 let data = []
 let moves = []
 const startCoords = {"y": 0,"x": 0}
-const endCoords = {"y": 5,"x": 7}
+let endCoords
 
 const GenerateMap = () => {
     data = [
-        ["0","0","1","0","0","0","0","0"],
-        ["0","1","0","0","0","0","1","0"], 
-        ["0","0","1","0","0","0","1","0"], 
-        ["0","0","1","0","0","0","1","0"], 
-        ["0","0","1","0","0","0","1","0"], 
-        ["0","0","0","0","0","0","1","0"]
+        ["0","0","1","0","0","0","0","0","0","0"],
+        ["0","0","1","0","1","0","1","0","1","0"], 
+        ["0","0","1","0","1","0","1","0","1","0"], 
+        ["0","0","1","0","1","0","1","0","1","0"], 
+        ["0","0","1","0","1","0","0","0","1","0"], 
+        ["0","0","1","0","0","0","0","0","1","0"], 
+        ["0","0","1","0","0","0","1","0","1","0"], 
+        ["0","0","1","0","1","1","1","1","1","0"], 
+        ["0","0","0","0","0","0","0","0","0","0"]
     ]
+    endCoords = {"y": data.length-1,"x": data[0].length-1}
     data[startCoords.y][startCoords.x] = moves[0] = new Move(startCoords.x,startCoords.y,1,CalculateDistance(startCoords.y,startCoords.x))
     data[endCoords.y][endCoords.x] = "e"
 }
@@ -38,6 +42,9 @@ const LoadMap = () => {
 
                 default:
                     tElement.classList.add("start") 
+                    if (column.bestTile) {
+                        tElement.style.backgroundColor = "yellow"
+                    }
                     tElement.appendChild(column.ReturnElement())
                     break;
             }
@@ -67,8 +74,19 @@ const MoveMap = () => {
     LoadMap()
 }
 
-const End = (endTile) => {
-    console.log(endTile)
+const End = (endTile) => { 
+    for (let index = endTile.round-1; index > 0; index--) {
+        const roundMoves = moves.filter(move => move.round == index) 
+
+        let bestMove = roundMoves[0]
+        if (roundMoves.length > 1) {
+            roundMoves.forEach(move => {
+                bestMove = move.points < bestMove.points ? move : bestMove
+            })
+        } 
+
+        data[bestMove.y][bestMove.x].bestTile = true 
+    }
 }
 
 moveBtn.addEventListener("click", () => {
