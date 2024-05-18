@@ -15,7 +15,7 @@ main{
     height: 100%;
 }
 
-#btn{
+#moveBtn{
     height: 10%;
     width: 100%;
     font-size: 3rem;
@@ -51,18 +51,18 @@ main{
         & .start{
             background-color: rgb(35, 180, 35);
             & div{
-                padding: 0% 25%;
                 
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 justify-content: space-between;
-
+                
                 & h2{
-                    font-size: 2.5rem;
+                    font-size: 2rem;
                 }
                 
                 & h4{
+                    margin: 0% 25%;
                     align-self: baseline;
                 }
             }

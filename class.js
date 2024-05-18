@@ -24,4 +24,23 @@ class Move{
 
         return containerDiv
     }
+
+    GetMoves = (data) => {
+        let moves = []
+
+        if (this.y > 0 && data[this.y-1][this.x] == "0") {
+            moves.push({"y": this.y-1, "x": this.x})   
+        }
+        if (this.x > 0 && data[this.y][this.x-1] == "0") {
+            moves.push({"y": this.y, "x": this.x-1})   
+        }
+        if (this.y < data.length-1 && data[this.y+1][this.x] == "0") {
+            moves.push({"y": this.y+1, "x": this.x})   
+        }
+        if (this.y < data[0].length-1 && data[this.y][this.x+1] == "0") {
+            moves.push({"y": this.y, "x": this.x+1})   
+        }
+
+        return moves
+    }
 }
